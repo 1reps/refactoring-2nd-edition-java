@@ -1,4 +1,4 @@
-package me.chapter01;
+package me.chapter01.asis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import me.chapter01.data.Invoice;
-import me.chapter01.data.Performance;
-import me.chapter01.data.Play;
+import me.chapter01.asis.data.Invoice;
+import me.chapter01.asis.data.Performance;
+import me.chapter01.asis.data.Play;
 
 public class Chapter01Application {
 
