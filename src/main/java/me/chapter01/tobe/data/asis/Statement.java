@@ -1,43 +1,18 @@
 package me.chapter01.tobe.data.asis;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.NumberFormat;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import me.chapter01.tobe.data.asis.data.Invoice;
 import me.chapter01.tobe.data.asis.data.Performance;
 import me.chapter01.tobe.data.asis.data.Play;
 
-public class Chapter01Application {
+public class Statement {
 
-    public static void main(String[] args) throws IOException {
-        // json 파일을 읽어온다
-        ClassLoader classLoader = Chapter01Application.class.getClassLoader();
-        InputStream jsonInvoices = Optional.ofNullable(classLoader.getResourceAsStream("chapter01/invoices.json"))
-            .orElseThrow(() -> new IllegalArgumentException("Failed to load resources from invoices.json"));
-
-        InputStream jsonPlays = Optional.ofNullable(classLoader.getResourceAsStream("chapter01/plays.json"))
-            .orElseThrow(() -> new IllegalArgumentException("Failed to load resources from plays.json"));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Invoice> invoices = objectMapper.readValue(jsonInvoices, new TypeReference<>() {
-        });
-        Map<String, Play> plays = objectMapper.readValue(jsonPlays, new TypeReference<>() {
-        });
-
-        List<String> results = invoices.stream()
-            .map(invoice -> statement(invoice, plays))
-            .toList();
-
-        System.out.println("results: " + results);
+    public Statement() {
     }
 
-    static String statement(Invoice invoice, Map<String, Play> plays) {
+    public static String statement(Invoice invoice, Map<String, Play> plays) {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder();
@@ -77,7 +52,7 @@ public class Chapter01Application {
 
             // 청구 내역을 출력한다
             result.append(
-                String.format("    %s: %s (%d)석%n",
+                String.format("  %s: %s원 (%d석)\n",
                     play.name(),
                     format.format(thisAmount / 100),
                     perf.audience())
@@ -85,8 +60,8 @@ public class Chapter01Application {
             totalAmount += thisAmount;
         }
 
-        result.append(String.format("총액: %s\n", format.format(totalAmount / 100)));
-        result.append(String.format("적립 포인트: %d\n", volumeCredits));
+        result.append(String.format("총액: %s원\n", format.format(totalAmount / 100)));
+        result.append(String.format("적립 포인트: %d점\n", volumeCredits));
         return result.toString();
     }
 
