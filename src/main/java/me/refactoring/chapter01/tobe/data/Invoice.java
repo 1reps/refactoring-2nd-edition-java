@@ -1,4 +1,4 @@
-package me.chapter01.asis.data;
+package me.refactoring.chapter01.tobe.data;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package me.chapter01.tobe.data.asis.data;
+package me.refactoring.chapter01.tobe.data;
 
 public record Play(String name, String type) {
 
